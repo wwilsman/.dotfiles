@@ -17,6 +17,9 @@
 - link:
     ~/.emacs.d: emacs.d
     ~/.gitconfig: gitconfig
+    ~/.gnupg/gpg-agent.conf:
+      path: gnupg/gpg-agent.conf
+      create: true
     ~/.scripts: scripts
     ~/.skhdrc: skhdrc
     ~/.ssh/config:
