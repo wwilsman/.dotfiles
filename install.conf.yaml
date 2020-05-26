@@ -15,6 +15,9 @@
     description: Installing brew bundle
 
 - link:
+    ~/.config/karabiner/karabiner.json:
+      path: config/karabiner/karabiner.json
+      create: true
     ~/.emacs.d: emacs.d
     ~/.gitconfig: gitconfig
     ~/.gnupg/gpg-agent.conf:
