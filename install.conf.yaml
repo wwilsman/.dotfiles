@@ -17,7 +17,10 @@
 - link:
     ~/.emacs.d: emacs.d
     ~/.gitconfig: gitconfig
+    ~/.scripts: scripts
+    ~/.skhdrc: skhdrc
     ~/.ssh/config:
       path: ssh/config
       create: true
+    ~/.yabairc: yabairc
     ~/.zshrc: zshrc
