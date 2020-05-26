@@ -23,6 +23,9 @@
     ~/.gnupg/gpg-agent.conf:
       path: gnupg/gpg-agent.conf
       create: true
+    ~/.oh-my-zsh/plugins/spaceship-zsh-theme-shrink-path:
+      path: oh-my-zsh/plugins/spaceship-zsh-theme-shrink-path
+      create: true
     ~/.scripts: scripts
     ~/.skhdrc: skhdrc
     ~/.ssh/config:
