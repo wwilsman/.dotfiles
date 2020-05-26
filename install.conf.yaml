@@ -12,4 +12,5 @@
 
 - link:
     ~/.emacs.d: emacs.d
+    ~/.gitconfig: gitconfig
     ~/.zshrc: zshrc
