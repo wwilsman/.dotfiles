@@ -7,6 +7,9 @@
 - shell:
   - command: git submodule update --init --recursive
     description: Installing submodules
+  - command: curl -L git.io/antigen > ~/.antigen.zsh
+    description: Installing antigen
 
 - link:
     ~/.emacs.d: emacs.d
+    ~/.zshrc: zshrc
