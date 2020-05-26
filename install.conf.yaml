@@ -9,6 +9,10 @@
     description: Installing submodules
   - command: curl -L git.io/antigen > ~/.antigen.zsh
     description: Installing antigen
+  - command: hash brew 2>/dev/null || bash -c "$(curl -L raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    description: Installing brew
+  - command: brew bundle --file ./brewfile
+    description: Installing brew bundle
 
 - link:
     ~/.emacs.d: emacs.d
