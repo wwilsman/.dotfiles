@@ -9,3 +9,4 @@
     description: Installing submodules
 
 - link:
+    ~/.emacs.d: emacs.d
