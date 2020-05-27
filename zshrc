@@ -7,6 +7,9 @@ antigen use oh-my-zsh
 # Default bundles
 antigen bundle shrink-path
 
+# ENV vars required for some bundles
+export NPM_TOKEN=""
+
 # Default language bundles
 antigen bundle bower
 # antigen bundle brew
