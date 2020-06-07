@@ -1,0 +1,12 @@
+- shell:
+  - command: hash brew 2>/dev/null || bash -c "$(curl -L raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    description: Installing brew
+  - command: brew bundle --file ./brewfile
+    description: Installing brew bundle
+
+- link:
+    ~/.config/karabiner/karabiner.json:
+      path: config/karabiner/karabiner.json
+      create: true
+    ~/.skhdrc: skhdrc
+    ~/.yabairc: yabairc
