@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-yabai -m config layout                       bsp
+yabai -m config layout                       float
 
 # padding and gaps
 yabai -m config top_padding                  20
