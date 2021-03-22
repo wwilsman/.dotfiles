@@ -3,8 +3,6 @@ brew "ispell"
 brew "the_silver_searcher"
 brew "git-time-metric/gtm/gtm"
 brew "mosh", args: ["--HEAD"]
-brew "koekeishiya/formulae/yabai", restart_service: :changed
-brew "koekeishiya/formulae/skhd", restart_service: :changed
 brew "yarn"
 brew "mysql"
 brew "pyenv"
@@ -13,4 +11,5 @@ cask "emacs"
 cask "firefox"
 cask "google-chrome"
 cask "karabiner-elements"
+cask "phoenix"
 cask "keycastr"

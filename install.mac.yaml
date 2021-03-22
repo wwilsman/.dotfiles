@@ -8,5 +8,4 @@
     ~/.config/karabiner/karabiner.json:
       path: config/karabiner/karabiner.json
       create: true
-    ~/.skhdrc: skhdrc
-    ~/.yabairc: yabairc
+    ~/.phoenix.js: phoenix/phoenix.js
