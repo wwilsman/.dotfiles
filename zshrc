@@ -11,13 +11,7 @@ antigen bundle shrink-path
 export NPM_TOKEN=""
 
 # Default language bundles
-antigen bundle bower
-# antigen bundle brew
-antigen bundle git
 antigen bundle node
-antigen bundle npm
-antigen bundle rails
-antigen bundle ruby
 
 # Syntax highlighting
 antigen bundle zdharma/fast-syntax-highlighting
@@ -32,9 +26,6 @@ SPACESHIP_NODE_SYMBOL=""
 SPACESHIP_RUBY_SYMBOL=""
 antigen theme denysdovhan/spaceship-zsh-theme spaceship
 antigen bundle ~/.oh-my-zsh/plugins/spaceship-zsh-theme-shrink-path --no-local-clone
-
-# Auto delete files in projects
-#antigen bundle wwilsman/zsh-clean-project
 
 # Git time tracking
 alias PWD=pwd
