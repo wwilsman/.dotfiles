@@ -6,6 +6,8 @@ brew "mosh", args: ["--HEAD"]
 brew "yarn"
 brew "mysql"
 brew "pyenv"
+brew "chruby"
+brew "ruby-install"
 
 cask "emacs"
 cask "firefox"
