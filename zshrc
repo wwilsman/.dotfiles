@@ -16,9 +16,6 @@ antigen bundle node
 # Syntax highlighting
 antigen bundle zdharma/fast-syntax-highlighting
 
-# NVM and useful NVM features
-antigen bundle lukechilds/zsh-nvm
-
 # Load theme and shrink-path theme plugin
 SPACESHIP_PROMPT_ORDER=(dir node ruby ember exec_time line_sep char)
 SPACESHIP_PROMPT_ADD_NEWLINE=false
@@ -49,3 +46,11 @@ export GPG_TTY=$(tty)
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
+
+# chruby
+source /usr/local/opt/chruby/share/chruby/chruby.sh
+source /usr/local/opt/chruby/share/chruby/auto.sh
+
+# chnode
+source /usr/local/opt/chnode/share/chnode/chnode.sh
+source /usr/local/opt/chnode/share/chnode/auto.sh
