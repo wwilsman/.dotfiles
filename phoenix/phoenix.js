@@ -1,5 +1,5 @@
 require('./modals.js');
-require('./windowing.js');
+require('./grid.js');
 require('./modes.js');
 
 // windowing mode (hyper + space)
@@ -9,7 +9,7 @@ Key.on('space', ['cmd', 'ctrl', 'alt', 'shift'], ModeMap.toggle('Windowing', [
   ['a', [], () => focused(w => w.focusClosestNeighbor('west'))],
   ['s', [], () => focused(w => w.focusClosestNeighbor('south'))],
   ['d', [], () => focused(w => w.focusClosestNeighbor('east'))],
-  ['c', [], () => focused(w => w.setTopLeft(center(w.frame())))],
+  ['c', [], () => focused(w => w.setTopLeft(Grid.center(w.frame())))],
   // grid settings
   ['2', [], () => Grid.set(2,  2)],
   ['3', [], () => Grid.set(3,  3)],
@@ -55,3 +55,37 @@ Key.on('space', ['cmd', 'ctrl', 'alt', 'shift'], ModeMap.toggle('Windowing', [
     Grid.set(5, 5, true);
   }
 }));
+
+// move persistant modals with the space
+Event.on('spaceDidChange', () => {
+  NamedModal.all.forEach(m => (
+    m.timeout ? m.close() : m.show()
+  ));
+});
+
+// conditional focused window callback helper
+function focused(callback) {
+  let win = Window.focused();
+  if (win) return callback(win);
+}
+
+// visible frame iterator
+function visible(callback) {
+  Screen.main()
+    .windows({ visible: true })
+    .forEach(callback);
+}
+
+// launch an app or move it to the current space
+function launch(app, callback) {
+  let space = Screen.main().currentSpace();
+  // @todo - something here sends focus to the other space
+  let win = App.launch(app, { focus: false }).mainWindow();
+
+  if (win.spaces().some(s => !s.isEqual(space))) {
+    win.spaces().forEach(s => s.removeWindows([win]));
+    space.addWindows([win]);
+  }
+
+  callback?.(win);
+}

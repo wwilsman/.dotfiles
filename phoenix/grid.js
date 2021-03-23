@@ -1,36 +1,3 @@
-function center(frame, bounds = Screen.main().flippedVisibleFrame()) {
-  let x = bounds.x + (bounds.width - frame.width) / 2;
-  let y = bounds.y + (bounds.height - frame.height) / 2;
-  return { x, y };
-}
-
-function clamp(num, min, max) {
-  return Math.min(Math.max(num, min), max);
-}
-
-function focused(callback) {
-  let win = Window.focused();
-  if (win) return callback(win);
-}
-
-function visible(callback) {
-  Screen.main()
-    .windows({ visible: true })
-    .forEach(callback);
-}
-
-function launch(app, callback) {
-  let space = Screen.main().currentSpace();
-  let win = App.launch(app, { focus: false }).mainWindow();
-
-  if (win.spaces().some(s => !s.isEqual(space))) {
-    win.spaces().forEach(s => s.removeWindows([win]));
-    space.addWindows([win]);
-  }
-
-  callback(win);
-}
-
 const Grid = {
   rows: 5,
   cols: 5,
@@ -46,7 +13,7 @@ const Grid = {
         duration: 2,
         text: `${rows}x${cols}`,
         origin: f => {
-          let origin = center(f);
+          let origin = Grid.center(f);
           origin.y -= mm.height + Grid.gap;
           return origin;
         }
@@ -78,26 +45,33 @@ const Grid = {
 
     if (cols) {
       let cell = bounds.width / (cols === true ? Grid.cols : cols);
-      frame.width = clamp(width * cell, cell, bounds.width) - Grid.gap;
-      frame.x = bounds.x + clamp(x * cell, 0, bounds.width - frame.width) + (Grid.gap / 2);
+      frame.width = _.clamp(width * cell, cell, bounds.width) - Grid.gap;
+      frame.x = bounds.x + _.clamp(x * cell, 0, bounds.width - frame.width) + (Grid.gap / 2);
     }
 
     if (rows) {
       let cell = bounds.height / (rows === true ? Grid.rows : rows);
-      frame.height = clamp(height * cell, cell, bounds.height) - Grid.gap;
-      frame.y = bounds.y + clamp(y * cell, 0, bounds.height - frame.height) + (Grid.gap / 2);
+      frame.height = _.clamp(height * cell, cell, bounds.height) - Grid.gap;
+      frame.y = bounds.y + _.clamp(y * cell, 0, bounds.height - frame.height) + (Grid.gap / 2);
     }
 
     win.setFrame(frame);
   },
 
   // returns a frame adjusted for window gaps/padding
-  visibleFrame(screen) {
+  visibleFrame(screen = Screen.main()) {
     let bounds = screen.flippedVisibleFrame();
     bounds.x += Grid.gap / 2;
     bounds.y += Grid.gap / 2;
     bounds.width -= Grid.gap;
     bounds.height -= Grid.gap;
     return bounds;
+  },
+
+  // returns a top-left point to center the provided frame
+  center(frame, bounds = Grid.visibleFrame()) {
+    let x = bounds.x + (bounds.width - frame.width) / 2;
+    let y = bounds.y + (bounds.height - frame.height) / 2;
+    return { x, y };
   }
 }

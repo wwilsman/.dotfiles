@@ -1,35 +1,47 @@
-function ModeMap(name, keys, callback) {
-  if (!(this instanceof ModeMap))
-    return new ModeMap(...arguments);
+class ModeMap {
+  // create a modemap for the specified keys; the callback is called when the mode (de)activates
+  constructor(name, keys, callback) {
+    this.name = name;
+    this.keys = keys;
+    this.callback = callback;
+  }
 
-  this.name = name;
-  this.callback = callback;
-
-  this.enable = () => {
-    this.handlers ||= keys.map(args => new Key(...args))
+  // enable this modemap
+  enable() {
+    this.handlers ||= this.keys.map(args => new Key(...args))
       .concat(new Key('escape', [], () => this.disable()));
     this.handlers.forEach(h => h.enable());
-    NamedModal.show('mode', { text: name, origin: center });
-    callback(this.isEnabled = true);
-  };
 
-  this.disable = () => {
+    NamedModal.show('mode', {
+      text: this.name,
+      origin: Grid.center
+    });
+
+    this.callback?.(this.isEnabled = true);
+  }
+
+  // disable this modemap
+  disable() {
     this.handlers.forEach(h => h.disable());
-    NamedModal.close('grid', 'mode');
-    callback(this.isEnabled = false);
-  };
+    NamedModal.closeAll();
 
-  this.toggle = () => (
-    this.isEnabled ? this.disable() : this.enable()
-  );
+    this.callback?.(this.isEnabled = false);
+  }
+
+  // toggle this modemap
+  toggle() {
+    return this.isEnabled
+      ? this.disable()
+      : this.enable();
+  }
 }
 
-Object.assign(ModeMap, {
-  all: new Map(),
+// jscore does not yet support static props
+ModeMap.all = new Map();
 
-  toggle(name, keys, callback) {
-    let mm = new ModeMap(name, keys, callback);
-    ModeMap.all.set(name, mm);
-    return mm.toggle;
-  }
-});
+// create a new modemap and return the toggle function
+ModeMap.toggle = (name, keys, callback) => {
+  let map = new ModeMap(name, keys, callback);
+  ModeMap.all.set(name, map);
+  return map.toggle.bind(map);
+};

@@ -1,52 +1,52 @@
-function NamedModal(name, props) {
-  if (!(this instanceof NamedModal))
-    return new NamedModal(...arguments);
-
-  this.name = name;
-  this.modal = Modal.build(props);
-  this.show = () => this.modal.show();
-  this.close = () => this.modal.close();
-  this.frame = () => this.modal.frame();
-
-  NamedModal.close(name);
-
-  if (props.duration) {
-    this.timeout = setTimeout(
-      () => this.modal.close(),
-      props.duration * 1000
-    );
+// global modals that can be referenced and updated by name
+class NamedModal {
+  // create a named modal
+  constructor(name, props) {
+    this.name = name;
+    this.modal = Modal.build(props);
+    NamedModal.close(name);
+    NamedModal.all.set(name, this);
   }
 
-  NamedModal.all.set(name, this);
+  // returns the modal frame
+  frame() {
+    return this.modal.frame();
+  }
+
+  // if the modal has a duration, clean up after
+  show() {
+    let { duration } = this.modal;
+    if (duration) this.timeout = setTimeout(this.close, duration * 1000);
+    this.modal.show();
+  }
+
+  // cleanup
+  close() {
+    NamedModal.all.delete(this.name);
+    clearTimeout(this.timeout);
+    this.modal.close();
+  }
 }
 
-Object.assign(NamedModal, {
-  all: new Map(),
-  timeouts: new Map(),
+// jscore does not yet support static props
+NamedModal.all = new Map();
 
-  show(name, props) {
-    new NamedModal(name, props).show();
-  },
+// show a named modal with optional props
+NamedModal.show = (name, props) => {
+  new NamedModal(name, props).show();
+};
 
-  get(name) {
-    return NamedModal.all.get(name);
-  },
+// get a named modal instance
+NamedModal.get = name => {
+  return NamedModal.all.get(name);
+};
 
-  close(...names) {
-    for (let name of names) {
-      let modal = NamedModal.all.get(name);
-      NamedModal.all.delete(name);
+// close named modals
+NamedModal.close = (...names) => {
+  names.forEach(n => NamedModal.get(n)?.close());
+};
 
-      if (modal) {
-        clearTimeout(modal.timeout);
-        modal.close();
-      }
-    }
-  }
-});
-
-Event.on('spaceDidChange', () => {
-  NamedModal.all.forEach(m => (
-    m.duration ? m.close() : m.show()
-  ));
-});
+// close all named modals
+NamedModal.closeAll = () => {
+  NamedModal.all.forEach(m => m.close());
+};
