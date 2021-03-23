@@ -1,20 +1,22 @@
+// grid utils for positioning windows and frames
 const Grid = {
+  // default grid settings
   rows: 5,
   cols: 5,
   gap: 20,
 
+  // update grid settings and show a modal under the mode modal
   set(rows, cols, silent) {
     Object.assign(Grid, { rows, cols });
 
     if (!silent) {
-      let mm = NamedModal.get('mode').frame();
-
       NamedModal.show('grid', {
         duration: 2,
         text: `${rows}x${cols}`,
         origin: f => {
           let origin = Grid.center(f);
-          origin.y -= mm.height + Grid.gap;
+          let modal = NamedModal.get('mode');
+          origin.y -= modal.frame().height + Grid.gap;
           return origin;
         }
       });

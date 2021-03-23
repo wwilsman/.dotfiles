@@ -16,7 +16,8 @@ class NamedModal {
   // if the modal has a duration, clean up after
   show() {
     let { duration } = this.modal;
-    if (duration) this.timeout = setTimeout(this.close, duration * 1000);
+    if (duration) this.timeout = (
+      setTimeout(this.close, duration * 1000));
     this.modal.show();
   }
 

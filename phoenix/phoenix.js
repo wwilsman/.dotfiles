@@ -1,6 +1,6 @@
-require('./modals.js');
+require('./named-modal.js');
+require('./mode-map.js');
 require('./grid.js');
-require('./modes.js');
 
 // windowing mode (hyper + space)
 Key.on('space', ['cmd', 'ctrl', 'alt', 'shift'], ModeMap.toggle('Windowing', [
@@ -50,8 +50,16 @@ Key.on('space', ['cmd', 'ctrl', 'alt', 'shift'], ModeMap.toggle('Windowing', [
   ['return', ['alt'], () => {
     focused(w => Grid.fit(w, 1, 1, 0, 0, 1, 1));
   }],
-], enabled => {
-  if (!enabled) {
+], map => {
+  if (map.isEnabled) {
+    // when enabled, show a modal
+    NamedModal.show('mode', {
+      text: map.name,
+      origin: Grid.center
+    });
+  } else {
+    // when disabled, close all modals and reset the grid
+    NamedModal.closeAll();
     Grid.set(5, 5, true);
   }
 }));
