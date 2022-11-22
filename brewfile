@@ -13,7 +13,9 @@ brew "chruby"
 brew "ruby-install"
 brew "grip"
 
-cask "emacs"
+tap "d12frosted/emacs-plus"
+brew "emacs-plus", args: ["with-xwidgets", "with-modern-purple-flat-icon"]
+
 cask "karabiner-elements"
 cask "phoenix"
 cask "keycastr"
