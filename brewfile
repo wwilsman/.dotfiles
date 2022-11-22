@@ -1,8 +1,9 @@
+tap "homebrew/autoupdate"
+
 brew "jq"
 brew "ispell"
 brew "the_silver_searcher"
 brew "git-time-metric/gtm/gtm"
-brew "mosh", args: ["--HEAD"]
 brew "node-build"
 brew "tkareine/chnode/chnode"
 brew "yarn"
@@ -10,6 +11,7 @@ brew "mysql"
 brew "pyenv"
 brew "chruby"
 brew "ruby-install"
+brew "grip"
 
 cask "emacs"
 cask "karabiner-elements"

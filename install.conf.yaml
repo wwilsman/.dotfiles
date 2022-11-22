@@ -20,7 +20,6 @@
     ~/.oh-my-zsh/plugins/spaceship-zsh-theme-shrink-path:
       path: oh-my-zsh/plugins/spaceship-zsh-theme-shrink-path
       create: true
-    ~/.scripts: scripts
     ~/.ssh/config:
       path: ssh/config
       create: true

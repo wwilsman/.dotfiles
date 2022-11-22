@@ -1,8 +1,12 @@
 - shell:
-  - command: hash brew 2>/dev/null || bash -c "$(curl -L raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+  - command: mkdir -p ~/Library/LaunchAgents
+    description: Creating LaunchAgents directory
+  - command: hash brew 2>/dev/null || bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     description: Installing brew
   - command: brew bundle --file ./brewfile
     description: Installing brew bundle
+  - command: brew autoupdate start --upgrade --cleanup --enable-notification
+    description: Enabling brew autoupdate
 
 - link:
     ~/.config/karabiner/karabiner.json:
