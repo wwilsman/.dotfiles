@@ -1,3 +1,7 @@
 [user]
-	email = wil@wilwilsman.com
 	name = Wil Wilsman
+	email = wil@wilsman.dev
+[pull]
+	rebase = true
+[rebase]
+	autoStash = true
